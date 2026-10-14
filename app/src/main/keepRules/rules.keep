@@ -1,0 +1,13 @@
+# yt-dlp wrapper uses Jackson reflection to parse video info — keep it.
+-keepattributes *Annotation*, Signature, InnerClasses, EnclosingMethod
+-keep class com.yausername.youtubedl_android.** { *; }
+-keep class com.yausername.ffmpeg.** { *; }
+-keep class com.fasterxml.jackson.** { *; }
+-keep class org.apache.commons.io.** { *; }
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
