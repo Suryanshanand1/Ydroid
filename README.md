@@ -6,6 +6,12 @@ An Android video downloader powered by **yt-dlp**. Paste a link, pick quality, d
 - Version: 1.1.0 (versionCode 2)
 - Min SDK 34 (Android 14+) · Target/Compile SDK 37
 
+## Screenshots
+
+| Home | More options | Settings |
+|---|---|---|
+| ![Home](screenshots/home.png) | ![More options](screenshots/options.png) | ![Settings](screenshots/settings.png) |
+
 ## Features
 
 - **Download** any yt-dlp-supported link with live progress
