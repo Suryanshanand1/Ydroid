@@ -3,18 +3,23 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+// Name split APKs ydroid-<abi>.apk instead of app-<abi>-<buildType>.apk.
+base {
+    archivesName.set("ydroid")
+}
+
 android {
-    namespace = "org.opensourcecommunity.ydroid"
+    namespace = "com.ydroid.app"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "org.opensourcecommunity.ydroid"
+        applicationId = "com.ydroid.app"
         minSdk = 34
         targetSdk = 37
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
