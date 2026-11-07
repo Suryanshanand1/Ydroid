@@ -36,18 +36,20 @@ An Android video downloader powered by **yt-dlp**. Paste a link, pick quality, d
 
 ## Install
 
-Grab the APK from Releases (or `app/build/outputs/apk/release/`):
+Grab the APK from Releases (or `app/build/outputs/apk/debug/`):
 
 | Device | File |
 |---|---|
-| Most modern phones (arm64) | `app-arm64-v8a-release.apk` (~77 MB) |
-| Older 32-bit phones | `app-armeabi-v7a-release.apk` |
-| Emulator (x86_64) | `app-x86_64-release.apk` |
-| Unsure | `app-universal-release.apk` (~215 MB) |
+| Most modern phones (arm64) | `ydroid-arm64-v8a.apk` (~86 MB) |
+| Older 32-bit phones | `ydroid-armeabi-v7a.apk` (~80 MB) |
+| Emulator (x86_64) | `ydroid-x86_64.apk` (~89 MB) |
+| Unsure | `ydroid-universal.apk` (~225 MB) |
 
 1. Uninstall any older Ydroid build first — the app ID is now `com.ydroid.app`, so it installs as a separate app.
 2. Install the APK (sideload — allow "install unknown apps" when asked).
 3. Open once: yt-dlp + Python unpack on first run (~30 s), allow notifications when prompted.
+
+> These APKs are signed with the debug key, which is fine for personal sideloading. Add a real keystore `signingConfig` before publishing public releases.
 
 By default files land in **Downloads/Ydroid**. Change this in **Settings → Storage** to any folder or SD card.
 
@@ -72,7 +74,7 @@ Requirements: JDK 17+, Android SDK with platform 37, ~8 GB free (native Python/f
 ./gradlew :app:assembleRelease    # release APKs (signed with debug key — replace signingConfig for public releases)
 ```
 
-Per-ABI APKs are in `app/build/outputs/apk/<debug|release>/`.
+Per-ABI APKs are written to `app/build/outputs/apk/<debug|release>/` and named `ydroid-<abi>-<buildType>.apk` (`ydroid-universal-<buildType>.apk` for the universal build).
 
 ## How it works
 
@@ -87,6 +89,20 @@ Per-ABI APKs are in `app/build/outputs/apk/<debug|release>/`.
 - Killing the app mid-download relies on service restart + `--continue`; reboot-persistence is not implemented.
 - Some videos need login (age-gated) or fresh yt-dlp (extractor changes) — use Settings → Account / Update yt-dlp.
 - Custom folders/SD cards are move-after-download (yt-dlp writes to `Downloads/Ydroid` first, then the app moves the new files). This temporarily needs free space in internal storage for large files.
+
+## Changelog
+
+### 1.2.0 — versionCode 3
+
+- **New package identity**: `com.ydroid.app` (namespace, applicationId, Kotlin packages and source folders). This is a separate install from older builds; app-private data does not carry over.
+- **Best is now the default quality** — no more silently capping new downloads at 720p.
+- **Automatic link preview** — pasting a URL fetches the title, uploader, thumbnail and duration, and shows an estimated download size for every quality option.
+- **Custom download location** — choose any folder or SD card in Settings → Storage. New downloads are moved there after finishing; previously downloaded files are left untouched. The Downloads tab shows both the default `Downloads/Ydroid` folder and the chosen location.
+- **Named APKs** — split builds are now `ydroid-arm64-v8a.apk`, `ydroid-armeabi-v7a.apk`, `ydroid-x86_64.apk` and `ydroid-universal.apk`.
+
+### 1.1.0
+
+- Queue with retry/pause/resume, background foreground service, playlist picker, YouTube login via WebView cookies, in-app yt-dlp updates, themes, subtitles, section cuts, SponsorBlock, `.m3u` export.
 
 ## Disclaimer
 
